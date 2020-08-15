@@ -1,0 +1,37 @@
+kind: pipeline
+name: note
+
+workspace:
+  base: /data
+  path: /note
+
+pipeline:
+  note-bulid:
+    image: node
+    commands:
+      - npm install ydoc -g
+      - ydoc build
+#   - name: note-deploy
+#     image: nginx
+#     commands:
+#       - cp -r /data/note/_site /usr/share/nginx/html
+#       - docker
+  note-publish:
+    image: plugins/docker
+    repo: registry.flyaha.top/yaha/note
+    registry: registry.flyaha.top
+    tags: ${DRONE_TAG=latest}
+    dockerfile: ./Dockerfile
+    mirror: https://docker.mirrors.ustc.edu.cn/
+    insecure: true
+    when:
+      event: [push, tag]
+
+  note-services:
+    name: yaha-note
+    image: http://registry.flyaha.top/yaha/note
+    ports:
+      - "7012:80"
+trigger:
+  branch:
+    - master
