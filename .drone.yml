@@ -28,10 +28,8 @@ pipeline:
       event: [push, tag]
 
   note-services:
-    name: yaha-note
-    image: http://registry.flyaha.top/yaha/note
-    ports:
-      - "7012:80"
+    commands:
+      - docker-compose up -d
 trigger:
   branch:
     - master

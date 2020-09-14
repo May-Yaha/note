@@ -14,6 +14,7 @@
 
 ## 编程语言
 * [PHP](/php/index.md)
+* [面向对象](/ood/index.md)
 ---
 
 ## 编程技巧
