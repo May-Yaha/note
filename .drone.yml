@@ -27,8 +27,7 @@ pipeline:
     when:
       event: [push, tag]
 
-  services:
-    name: yaha/note
+  note-deploy:
     image: http://registry.flyaha.top/yaha/note
     ports:
       - "7012:80"
