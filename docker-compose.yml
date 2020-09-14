@@ -1,8 +1,10 @@
 version: '3'
 services:
-  filebrowser:
+  yaha-note:
     image: http://registry.flyaha.top/yaha/note
     container_name: yaha-note
+    ports:
+      - "7012:80"
 networks:
   default:
     external:
