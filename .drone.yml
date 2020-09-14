@@ -29,8 +29,9 @@ pipeline:
 
   note-deploy:
     image: http://registry.flyaha.top/yaha/note
-    ports:
-      - "7012:80"
+    when:
+      event: deployment
+      environment: note-deploy
 
 trigger:
   branch:
