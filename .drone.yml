@@ -28,6 +28,7 @@ pipeline:
       event: [push, tag]
 
   note-services:
+    name: note-deploy
     commands:
       - docker-compose up -d
 trigger:
