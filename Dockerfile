@@ -6,5 +6,5 @@ RUN ydoc build
 
 FROM nginx as note-route
 COPY --from=note-bulid /app/_site/ /usr/share/nginx/html
-EXPOSE 7012
+EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
