@@ -1,11 +1,7 @@
 version: '3'
 services:
   yaha-note:
-    image: http://registry.flyaha.top/yaha/note
+    image: yaha-note:v1.2
     container_name: yaha-note
     ports:
       - "7012:80"
-networks:
-  default:
-    external:
-      name: geeks

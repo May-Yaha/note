@@ -59,13 +59,12 @@
 
 [206. 反转链表](https://leetcode-cn.com/problems/reverse-linked-list/)
 
-**思路一**
+### 解题思路
 
-利用递归的思想，互换位置
+[官方解题](https://leetcode-cn.com/problems/reverse-linked-list/solution/fan-zhuan-lian-biao-by-leetcode/)
 
-**思路二**
-
-利用迭代的思想，将其互换位置
+- **思路一**：利用递归的思想，互换位置
+- **思路二**：利用迭代的思想，将其互换位置
 
 ### 3.1.1 递归
 
@@ -117,16 +116,17 @@ func reverseList(head *ListNode) *ListNode {
 
 [环形链表](https://leetcode-cn.com/problems/linked-list-cycle/)
 
-**思路一**
+### 解题思路
 
-1. 遍历整个链表，如果不存在则加入map
-2. 判断如果存在则直接`return true`，否则将其加入到map中
+[官方解题](https://leetcode-cn.com/problems/linked-list-cycle/solution/zhe-shi-yi-ge-you-qu-de-shi-pin-ti-jie-kuai-man-zh/)
 
-**思路二**
-
-1. 设置两个指针quick和slow
-2. quick每次走两步，slow每次走一步
-3. 如果两个相等，则证明有环
+- **思路一**
+	1. 遍历整个链表，如果不存在则加入map
+	2. 判断如果存在则直接`return true`，否则将其加入到map中
+- **思路二**
+	1. 设置两个指针quick和slow
+	2. quick每次走两步，slow每次走一步
+	3. 如果两个相等，则证明有环
 
 ### 3.2.1 Map直接查找
 
@@ -271,10 +271,159 @@ func hasCycle(head *ListNode) bool {
 
 [环形链表 II](https://leetcode-cn.com/problems/linked-list-cycle-ii/)
 
+### 解题思路
+
+[官方解题](https://leetcode-cn.com/problems/linked-list-cycle-ii/solution/huan-xing-lian-biao-ii-by-leetcode/)
+
+- **思路一**：双指针
+- **思路二**：map查询
+
+### map
+
+```go
+func detectCycleOfMap(head *ListNode) *ListNode {
+	if head == nil {
+		return nil
+	}
+
+	m := map[*ListNode]int8{}
+
+	for head != nil {
+		if _, exist := m[head]; exist {
+			return head
+		}
+
+		m[head] = 1
+		head = head.Next
+	}
+
+	return nil
+}
+```
+
+### 双指针
+
+```go
+func detectCycleOfDoublePointer(head *ListNode) *ListNode {
+	if head == nil || head.Next == nil {
+		return nil
+	}
+
+	fast := head
+	slow := head
+	for fast.Next != nil && fast.Next.Next != nil {
+		if fast.Next == nil {
+			return nil
+		}
+		slow = slow.Next
+		fast = fast.Next.Next
+		if fast == slow {
+			for head != fast {
+				head = head.Next
+				fast = fast.Next
+			}
+			return head
+		}
+	}
+	return nil
+}
+
+```
+
 ## 3.4 两两交换链表中的节点
 
 [两两交换链表中的节点](https://leetcode-cn.com/problems/swap-nodes-in-pairs/)
 
+### 解题思路
+
+[官方题解](https://leetcode-cn.com/problems/swap-nodes-in-pairs/solution/liang-liang-jiao-huan-lian-biao-zhong-de-jie-di-19/)
+
+- **思路一**：递归
+- **思路二**：迭代
+
+### 递归
+
+```go
+func swapPairsOfRecursion(head *ListNode) *ListNode {
+	if head == nil || head.Next == nil {
+		return head
+	}
+	next := head.Next
+	head.Next = swapPairsOfRecursion(next.Next)
+	next.Next = head
+	return next
+}
+```
+
+### 迭代
+
+```go
+func swapPairsOfIteration(head *ListNode) *ListNode {
+	if head == nil || head.Next == nil {
+		return head
+	}
+
+	h := &ListNode{Next: head}
+	h.Next = head
+	pre := h
+
+	for pre.Next != nil && pre.Next.Next != nil {
+		cur := pre.Next
+		next := pre.Next.Next
+		pre.Next = next
+		cur.Next = next.Next
+		next.Next = cur
+		pre = cur
+	}
+	return h.Next
+}
+```
+
 ## 3.5 K 个一组翻转链表
 
 [K 个一组翻转链表](https://leetcode-cn.com/problems/reverse-nodes-in-k-group/)
+
+### 解题思路
+
+[官方解题](https://leetcode-cn.com/problems/reverse-nodes-in-k-group/solution/k-ge-yi-zu-fan-zhuan-lian-biao-by-leetcode-solutio/)
+
+1. 循环整个链表
+2. 在循环中按k个进行分组
+3. 对这k个进行反转
+
+```go
+func reverseKGroup(head *ListNode, k int) *ListNode {
+	hair := &ListNode{Next: head}
+	pre := hair
+
+	for head != nil {
+		tail := pre
+		for i := 0; i < k; i++ {
+			tail = tail.Next
+			if tail == nil {
+				return hair.Next
+			}
+		}
+		nex := tail.Next
+		head, tail = reverseList(head, tail)
+		pre.Next = head
+		tail.Next = nex
+		pre = tail
+		head = tail.Next
+	}
+	return hair.Next
+}
+
+func reverseList(head, tail *ListNode) (*ListNode, *ListNode) {
+	prev := tail.Next
+	p := head
+	for prev != tail {
+		nex := p.Next
+		p.Next = prev
+		prev = p
+		p = nex
+	}
+	return tail, head
+}
+
+```

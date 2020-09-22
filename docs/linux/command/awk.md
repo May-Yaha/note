@@ -145,20 +145,6 @@ awk '{split($7,a,"?");print a[1]}'
 awk 'match($0,/(module=[a-zA-Z0-9]+).*(curl_errmsg=[a-zA-Z0-9_\+]*).*(uri=[a-zA-Z0-9\/_]+).*(err_no=[\-0-9]+).*(err_info=[a-zA-Z0-9_\+]*)/,a){print a[1]"\t"a[2]"\t"a[3]"\t"a[4]"\t"a[5]}'
 ~~~
 
-
-# sed
-
-## 替换字符串
-
-~~~bash
-[yaha@Yaha ~]$ echo SELECT+xxx+as+xxx%2C+FROM+***+WHERE+%28xxx+in+%281234567%29+limit+0%2C+1000 | sed 's/%2C/,/g' | sed 's/+/ /g' |sed 's/%28/(/g'|sed 's/%29/)/g'
-SELECT xxx as xxx FROM ***** WHERE (xxx in (1234567)) limit 0, 1000
-~~~
-
-## 查看指定行数
-
-`sed -n '2,2p' ./test.log`
-
 ## 实例
 
 ### 耗时统计
@@ -173,22 +159,17 @@ awk '{s[$1]+=$2;sum[$1]=sum[$1]+1}END{for(i in s){print sum[i],i,s[i]/sum[i]}}' 
 
 你可以假设每行列数相同，并且每个字段由 ' ' 分隔.
 
-输入：
-
-```
+~~~bash
+# 输入
 name age
 alice 21
 ryan 30
-```
 
-输出：
-
-```
+# 输出
 name alice ryan
 age 21 30
-```
 
-```shell
+# code
 awk 'BEGIN{
         c=0;
     } {
@@ -208,8 +189,7 @@ awk 'BEGIN{
             printf("%s\n", str)
         }
     }' file.txt
-
-```
+~~~
 
 ## 过滤电话号码
 
@@ -217,21 +197,16 @@ awk 'BEGIN{
 
 你可以假设一个有效的电话号码必须满足以下两种格式： (xxx) xxx-xxxx 或 xxx-xxx-xxxx。
 
-输入
-
-```
+~~~bash
+# 输入
 987-123-4567
 123 456 7890
 (123) 456-7890
-```
 
-输出：
-
-```
+# 输出
 987-123-4567
 (123) 456-7890
-```
 
-```shell
+# code
 grep -wE '([0-9]{3}-[0-9]{3}-[0-9]{4})|(\([0-9]{3}\) [0-9]{3}-[0-9]{4})' file.txt
-```
+~~~
