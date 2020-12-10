@@ -1,7 +1,7 @@
 version: '3'
 services:
   yaha-note:
-    image: yaha-note:v1.2
+    image: yaha-note:v2.0
     container_name: yaha-note
     ports:
       - "7012:80"
