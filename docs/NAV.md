@@ -27,12 +27,9 @@
 ## 编程技巧
 
 * [重构](/refactoring/index.md)
+* [软件设计之美](/software_design/index.md)
 
 ---
-
-## 极客时间
-
-* [软件设计之美](/geek/software_design/index.md)
 
 ## 工作技巧
 
