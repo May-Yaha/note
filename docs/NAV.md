@@ -28,7 +28,7 @@
 
 * [重构](/refactoring/index.md)
 * [软件设计之美](/software_design/index.md)
-* [Debug技巧](/dlv/imdex.md)
+* [【Debug技巧】dlv](/dlv/imdex.md)
 
 ---
 

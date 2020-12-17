@@ -2,4 +2,5 @@
 
 ## 软件设计之美
 
-* [概念](concept.md)
+* [概念](index.md)
+* [理论](theory.md)
