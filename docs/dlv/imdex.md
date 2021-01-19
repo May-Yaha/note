@@ -106,3 +106,4 @@ goroutines|grs | 显示全部go协程 | goroutines
 restart | r | 重新运行 | 上次设置的断点依然有效
 args | | 输出函数参数 |
 locals | | 输出函数局部变量 |
+config max-string-len 1000 | | 显示全部变量 |
